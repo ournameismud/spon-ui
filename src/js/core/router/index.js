@@ -1,10 +1,11 @@
+import NProgress from 'nprogress'
 import { createEvents } from '@/core/modules/createEvents'
 import eventBus from '@/core/modules/eventBus'
 import { composeProps } from '@/core/modules/refs'
 import { preventClick, activeLinks, localLinks } from './utils/links'
 import historyManager from './history'
 import cache from './cache'
-import request from './request'
+import request, { Queue } from './request'
 import lifecycle from './lifecycle'
 import lazyload from './lazyload'
 import * as Action from './actions'
@@ -48,7 +49,10 @@ export default (() => {
 			classes,
 			onEnter,
 			onExit,
-			prefetchTargets = '[data-prefetch]'
+			prefetchTargets = '[data-prefetch]',
+			progressOptions = {
+				showSpinner: true
+			}
 		}) {
 			// bootup the lifecycle
 			lifecycle
@@ -72,6 +76,8 @@ export default (() => {
 
 			eventBus.on(Action.ROUTE_TRANSITION_AFTER_DOM_UPDATE, onEnter)
 
+			NProgress.configure(progressOptions)
+
 			return this
 		}
 
@@ -86,7 +92,8 @@ export default (() => {
 		 *
 		 * @return {void}
 		 */
-		static goTo = ({ pathname, action, dataAttrs }, transition) => {
+		static goTo({ pathname, action, dataAttrs }, transition) {
+			NProgress.start()
 			lifecycle
 				.transition({ pathname, action, transition, dataAttrs })
 				.then(({ action, newHtml }) => {
@@ -94,11 +101,13 @@ export default (() => {
 						historyManager.push(pathname, { attr: dataAttrs })
 					}
 					localLinks(newHtml)
+					NProgress.done()
 				})
 				.catch(err => {
 					eventBus.emit(Action.ROUTER_PAGE_NOT_FOUND, err)
 					// eslint-disable-next-line
 					console.warn(`[PREFETCH] no page found at ${err}`)
+					window.location = pathname
 				})
 		}
 
@@ -112,25 +121,18 @@ export default (() => {
 		 * @return {void}
 		 */
 		onMouseEnter = (e, elm) => {
-			const { pathname } = elm
-			if (
-				!preventClick(e, elm) ||
-				cache.get(pathname) ||
-				elm.classList.contains('---is-fetching---')
-			) {
+			const { href } = elm
+			const pathname = href.replace(window.location.origin, '')
+			const fromCache = cache.get(pathname)
+
+			if (!preventClick(e, elm) || fromCache || Queue.size >= 4) {
 				return
 			}
 
-			elm.classList.add('---is-fetching---')
-
-			request(pathname)
-				.then(() => {
-					elm.classList.remove('---is-fetching---')
-				})
-				.catch(err => {
-					// eslint-disable-next-line
-					console.warn(`[PREFETCH] no page found at ${pathname}`, err)
-				})
+			request(pathname).catch(err => {
+				// eslint-disable-next-line
+				console.warn(`[PREFETCH] no page found at ${pathname}`, err)
+			})
 		}
 
 		/** *
@@ -143,7 +145,8 @@ export default (() => {
 		 * @return {void}
 		 */
 		onClick = (e, elm) => {
-			const { pathname } = elm
+			const { href } = elm
+			const pathname = href.replace(window.location.origin, '')
 
 			if (!preventClick(e, elm)) {
 				return

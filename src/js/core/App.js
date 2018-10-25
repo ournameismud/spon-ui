@@ -24,7 +24,12 @@ export default (() =>
 
 			eventBus.on(Actions.ROUTE_TRANSITION_AFTER_DOM_UPDATE, ({ newHtml }) => {
 				this.$loader.hydrate(newHtml)
-				this.$router.lazyload()
+
+				if (window.requestIdleCallback) {
+					window.requestIdleCallback(() => {
+						this.$router.lazyload()
+					})
+				}
 			})
 		}
 	})()
