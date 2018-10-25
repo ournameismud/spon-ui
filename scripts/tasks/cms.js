@@ -1,13 +1,10 @@
 const gulp = require('gulp')
-const changed = require('gulp-changed')
 const browserSync = require('browser-sync')
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const htmlreplace = require('gulp-html-replace')
-const inject = require('gulp-inject-string')
 const middleware = require('../webpack/middleware')
-const { getSrcPaths, getCraftPath } = require('../utils/paths')
 const devConfig = require('../webpack/config.dev')
 
 const cacheTags = () => {

@@ -1,8 +1,7 @@
 const gulp = require('gulp')
-const browserSync = require('browser-sync')
 const staticFiles = require('./static')
 const scss = require('./scss')
-const { getStaticPaths, getSrcPaths, getCraftPath } = require('../utils/paths')
+const { getStaticPaths, getSrcPaths } = require('../utils/paths')
 
 const watch = done => {
 	gulp.watch(getStaticPaths('**/**'), gulp.series(staticFiles))
