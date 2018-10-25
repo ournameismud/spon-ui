@@ -31,8 +31,6 @@
 - `deploy` craftcms lives here
 - `deploy/public` the public root folder
 
-### Dev mode
-
 ###### Start cms server
 
 `npm start`
