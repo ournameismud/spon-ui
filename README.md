@@ -11,13 +11,10 @@
 - Remove unused css - via purges
 - SVG symbols
 - Handle any static file type, compress images, css, etc
-- Integration with craftcms - via ournameismud/fractal
 - eslint
 - stylelint
-- htmlhint
 - prettier
 - jest
-- backstopjs - regression tests
 
 ## Getting started
 
@@ -33,7 +30,6 @@
 - `src/scss/style.scss` main scss file, includes tailwind imports
 - `deploy` craftcms lives here
 - `deploy/public` the public root folder
-- `tmp` used in dev mode, ie `npm start`
 
 ### Dev mode
 
@@ -44,18 +40,6 @@
 ###### Create a production build
 
 `npm run build`
-
-###### Run any tests with jest
-
-`npm run test`
-
-###### Run tests in watch mode
-
-`npm run test:watch`
-
-###### Get a test coverage report
-
-`npm run coverage`
 
 ### Deployment (netlify)
 

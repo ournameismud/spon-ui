@@ -1,20 +1,20 @@
 /*
   Media query debugger
 */
-@import 'framework/units';
-@import 'framework/debug';
+@import 'base/units';
+@import 'base/debug';
 
 /*
   svg-symbols generated via `gulp symbols`
 */
-@import 'framework/svg-symbols';
+@import 'base/svg-symbols';
 
 /*
   Resets, and globals
 */
 @tailwind preflight;
 
-@import 'framework/base';
+@import 'base/base';
 
 /*
   third party chuff
@@ -27,7 +27,8 @@
   [03] Global elements patterns
   [04] Components patterns
 */
-@import '../templates/**/**/**/*';
+@import 'objects/**';
+@import 'components/**';
 
 /*
   Tailwindcss
@@ -41,9 +42,9 @@
 /*
   custom utilities
 */
-@import 'framework/custom';
+@import 'base/custom';
 
 /*
   Print styles
 */
-@import 'framework/print';
+@import 'base/print';
