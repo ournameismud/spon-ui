@@ -1,6 +1,6 @@
 const path = require('path')
 
-module.exports = (env, prefixUrls) => ({
+module.exports = env => ({
 	stamp: Date.now(),
 
 	server: {
@@ -21,11 +21,11 @@ module.exports = (env, prefixUrls) => ({
 					ignored: '**/*.hot-update.json'
 				}
 			}
-		],
-		https: {
-			key: path.resolve(process.env.PWD, 'private', 'key.pem'),
-			cert: path.resolve(process.env.PWD, 'private', 'cert.pem')
-		}
+		]
+		// https: {
+		// 	key: path.resolve(process.env.PWD, 'private', 'key.pem'),
+		// 	cert: path.resolve(process.env.PWD, 'private', 'cert.pem')
+		// }
 	},
 
 	js: {
@@ -81,106 +81,5 @@ module.exports = (env, prefixUrls) => ({
 
 	purge: {
 		whitelistPatterns: [/plyr/, /is-/, /has-/, /no-/, /icon--/, /lazy/]
-	},
-
-	fractal: {
-		title: 'spon-ui',
-		layout: 'wrapper/_base.twig',
-		base: '@base',
-		context: {
-			BASE_PATH: prefixUrls ? '/components/preview' : ''
-		},
-		collated: false,
-		collator(markup, item) {
-			return `<!-- Start: @${item.handle} -->
-			<div style="margin: 0 0 40px 0;">
-				<h3 style="font-size: 14px; margin: 0 0 20px; color: rgba(83, 83, 99, 0.5); padding: 10px 40px; background: rgba(83, 83, 99, 0.075)">${
-	item.handle
-	}</h3>
-				<div style="padding: 20px 40px">
-					\n${markup}\n
-				</div>
-			</div>
-			<!-- End: @${item.handle} -->\n`
-		},
-
-		server: {},
-
-		statuses: {
-			tool: {
-				label: 'Prototype',
-				description: 'Do not implement.',
-				color: '#FF3333'
-			},
-			wip: {
-				label: 'WIP',
-				description: 'Work in progress. Implement with caution.',
-				color: '#FF9233'
-			},
-			ready: {
-				label: 'Ready',
-				description: 'Ready to implement. Snapshot saved',
-				color: '#4ae4ae'
-			},
-			test: {
-				label: 'Test',
-				description: 'Regression test',
-				color: '#44aaee'
-			},
-			production: {
-				label: 'Production',
-				description: 'Component in production, regression tests approved',
-				color: '#29CC29'
-			}
-		}
-	},
-
-	backstop: {
-		url: 'http://localhost:3000/components/preview/',
-		defaults: {
-			selectorExpansion: true,
-			hideSelectors: [],
-			removeSelectors: [],
-			readyEvent: null,
-			delay: 500,
-			misMatchThreshold: 0.2,
-			requireSameDimensions: true,
-			selector: ['body']
-		},
-
-		config: {
-			id: 'spon regression tests',
-			viewports: [
-				{
-					label: 'phone',
-					width: 320,
-					height: 480
-				},
-				{
-					label: 'tablet',
-					width: 1024,
-					height: 768
-				}
-			],
-			onBeforeScript: 'puppet/onBefore.js',
-			onReadyScript: 'puppet/onReady.js',
-			scenarios: [],
-			paths: {
-				bitmaps_reference: '__snapshots/bitmaps_reference',
-				bitmaps_test: '__snapshots/bitmaps_test',
-				engine_scripts: '__snapshots/engine_scripts',
-				html_report: '__snapshots/html_report',
-				ci_report: '__snapshots/ci_report'
-			},
-			report: ['browser'],
-			engine: 'puppeteer',
-			engineOptions: {
-				args: ['--no-sandbox']
-			},
-			asyncCaptureLimit: 5,
-			asyncCompareLimit: 50,
-			debug: false,
-			debugWindow: false
-		}
 	}
 })

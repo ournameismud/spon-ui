@@ -1,6 +1,0 @@
-{
-	"public": "./deploy/public/",
-	"proxy": "https://spon.dev",
-
-	"critical": [{ "url": "/", "css": "home-page" }]
-}

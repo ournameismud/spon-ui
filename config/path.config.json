@@ -1,9 +1,11 @@
 {
 	"src": "./src/",
-	"static": "./static/",
-	"public": "./tmp/public/",
-	"library": "./deploy/library",
 	"craft": "./deploy/",
+	"static": "./static/",
+	"public": "./deploy/public/",
+	"proxy": "http://spon.dev",
+
+	"critical": [{ "url": "/", "css": "home-page" }],
 
 	"images": "**/*.+(jpg|jpeg|png|gif|webp)",
 	"css": "**/*.css",

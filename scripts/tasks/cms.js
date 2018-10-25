@@ -35,32 +35,6 @@ const cacheTags = () => {
 		.pipe(gulp.dest(path.resolve(process.env.PWD, dir)))
 }
 
-const syncPartials = () => {
-	const {
-		PATHS: {
-			fractal: { templates, exclude, craftOutput }
-		}
-	} = global
-
-	const dest = getCraftPath(craftOutput)
-	return gulp
-		.src([
-			getSrcPaths(templates),
-			getSrcPaths(exclude)
-				.map(item => `!${item}`)
-				.join(',')
-		])
-		.pipe(changed(dest))
-		.pipe(
-			inject.wrap(
-				'{# AUTO GENERATED FILE - DO NOT EDIT #}\n',
-				'\n{# AUTO GENERATED FILE - DO NOT EDIT #}'
-			)
-		)
-		.pipe(gulp.dest(dest))
-		.pipe(browserSync.stream())
-}
-
 const serverProxy = done => {
 	const compiler = webpack(merge(global.WEBPACK_CONFIG, devConfig))
 
@@ -79,7 +53,6 @@ const serverProxy = done => {
 }
 
 module.exports = {
-	syncPartials,
 	serverProxy,
 	cacheTags
 }
