@@ -15,30 +15,18 @@ deploy/vendor
 deploy/.env
 deploy/.env.php
 deploy/storage
-deploy
 deploy/public/assets
 deploy/public/resources
 
 
-# fractal
-# ----------------------------------------------------------------------
-deploy/library
 
 
 # NodeJS modules folder
 # ----------------------------------------------------------------------
 node_modules
 
-# Craft runtime and backups folders
-# ----------------------------------------------------------------------
-craft/storage/runtime/*
-craft/storage/backups/*
 
-# Uploaded files
-# ----------------------------------------------------------------------
-public/resources/*
-public/assets/*
-public/imager/*
+
 
 # Design resources
 # ----------------------------------------------------------------------
