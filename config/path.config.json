@@ -16,17 +16,10 @@
 		"dir": "./deploy/templates/wrapper"
 	},
 
-	"fractal": {
-		"partials": "_partials",
-		"templates": "templates/**/**/**/**/**/**/*.twig",
-		"exclude": ["templates/wrapper/**.twig", "templates/05-pages/**/*.twig"],
-		"craftOutput": "templates/_partials"
-	},
-
 	"symbols": {
 		"src": "**/ui-*.svg",
 		"scss": "scss/framework",
-		"html": "./src/templates/_svgs"
+		"html": "./deploy/templates/_svgs"
 	},
 
 	"js": {
@@ -36,7 +29,7 @@
 	},
 
 	"scss": {
-		"src": ["scss/**/**/*.scss", "templates/**/**/*.scss"],
+		"src": ["scss/**/**/*.scss"],
 		"dest": "dist/css"
 	},
 

@@ -18,10 +18,7 @@ const purge = done => {
 	}
 
 	const build = getPublicPath('dist')
-	const html =
-		global.config === 'cms'
-			? getCraftPath('templates/**/**/**/*.twig')
-			: getSrcPaths('templates/**/**.twig')
+	const html = getCraftPath('templates/**/**/**/*.twig')
 	const js = getSrcPaths('js/**/**/*.js')
 	const {
 		TASK: { stamp, purge: options }

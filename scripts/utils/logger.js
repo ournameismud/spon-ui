@@ -16,8 +16,6 @@ function prettyTime(milliseconds) {
 const handleErrors = (errorObject, callback) => {
 	if (!errorObject) return
 
-	console.log(errorObject)
-
 	notify
 		.onError(
 			errorObject

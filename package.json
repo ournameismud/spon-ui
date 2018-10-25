@@ -1,6 +1,6 @@
 {
 	"name": "spon-ui",
-	"description": "Gulp tasks and Fractal",
+	"description": "Gulp tasks",
 	"version": "3.0.0",
 	"main": "gulpfile.js",
 	"author": "Dave Stockley",
@@ -9,11 +9,11 @@
 		"node": ">=8.6.0"
 	},
 	"bugs": {
-		"url": "https://github.com/magicspon/spon-ui/issues"
+		"url": "https://github.com/ournameismud/spon-ui/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/magicspon/spon-ui.git"
+		"url": "git+https://github.com/ournameismud/spon-ui.git"
 	},
 	"browser": true,
 	"jest": {
@@ -41,14 +41,10 @@
 			"jsdom-quokka-plugin"
 		]
 	},
-	"homepage": "https://github.com/magicspon/spon-ui#readme",
+	"homepage": "https://github.com/ournameismud/spon-ui#readme",
 	"scripts": {
 		"start": "npx gulp",
 		"build": "npx gulp build --env production",
-		"deploy": "netlify deploy",
-		"test": "jest",
-		"test:watch": "jest --watch",
-		"coverage": "jest --coverage",
 		"gen-cert": "mkdir private && node ./scripts/utils/cert/cli.js gen-certs",
 		"lint:js": "eslint --ext src/js/** .",
 		"lint:scss": "stylelint src/**/*.scss --syntax scss",
